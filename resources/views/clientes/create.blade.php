@@ -16,7 +16,7 @@
         <form action="{{ route('clientes.store') }}" method="POST">
             @csrf
         
-            <div style="display: flex; gap: 20px; margin-bottom: 15px;">
+            <div style="display: flex; gap: 20px; margin-bottom: 15px;"> 
                 <div style="flex: 1;">
                     <label for="matricula">Identificador (Matrícula)</label>
                     <input type="text" name="matricula" id="matricula" placeholder="Ex: 123456" value="{{ old('matricula') }}">
@@ -28,7 +28,7 @@
                 </div>
             </div>
         
-            <label for="nome">Nome</label>
+            <label for="nome">Nome</label> 
             <input type="text" name="nome" id="nome" required value="{{ old('nome') }}">
         
             <label for="data_nascimento">Data de Nascimento</label>

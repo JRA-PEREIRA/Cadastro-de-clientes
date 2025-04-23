@@ -3,7 +3,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ClienteController;
 
 use App\Http\Controllers\DepositoController;
-
+use App\Http\Controllers\ProdutoController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -20,3 +20,7 @@ Route::delete('/delete-cliente/{cliente}', [ClienteController::class, 'destroy']
 
 Route::get('/depositos/create', [DepositoController::class, 'create'])->name('depositos.create');
 Route::post('/depositos', [DepositoController::class, 'store'])->name('depositos.store');
+
+Route::get('/produtos/create', [ProdutoController::class, 'create'])->name('produtos.create');
+Route::post('/produtos/store', [ProdutoController::class, 'store'])->name('produtos.store');
+

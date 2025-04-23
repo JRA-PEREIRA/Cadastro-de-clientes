@@ -14,6 +14,7 @@
         <div class="d-flex justify-content-between align-items-center mb-4">
             <h1>Lista de Clientes</h1>
             <a href="{{ route('clientes.create') }}" class="btn btn-success">Novo Cliente</a>
+            <a href="{{ route('depositos.create') }}" class="btn btn-success">Depositar</a>
         </div>
 
         @if(session('success'))

@@ -35,9 +35,9 @@ class ClienteController extends Controller
                 'celular' => 'required|regex:/^\(\d{2}\) \d{5}-\d{4}$/',
                 'email' => 'required|email|unique:clientes,email',
             ]);
-
+            
             Cliente::create($validated);
-
+            
             return redirect()->route('clientes.index')->with('success', 'Cliente cadastrado com sucesso!');
         } catch (Exception $ex) {
             return redirect()->route('clientes.create')->with('error', $ex->getMessage())->withInput();

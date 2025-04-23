@@ -15,7 +15,8 @@
             <div style="background: red; color: white;">{{ session('error') }}</div>
         @endif
 
-        <form action="{{ route('clientes.update') }}" method="POST">
+        <form action="{{ route('clientes.update', $cliente->id) }}" method="POST">
+
             @csrf
             @method('PUT')
 
