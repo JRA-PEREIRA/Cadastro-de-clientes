@@ -5,6 +5,8 @@ use App\Http\Controllers\ClienteController;
 use App\Http\Controllers\DepositoController;
 use App\Http\Controllers\ProdutoController;
 
+use App\Http\Controllers\VendaController;
+
 Route::get('/', function () {
     return view('welcome');
 });
@@ -24,3 +26,5 @@ Route::post('/depositos', [DepositoController::class, 'store'])->name('depositos
 Route::get('/produtos/create', [ProdutoController::class, 'create'])->name('produtos.create');
 Route::post('/produtos/store', [ProdutoController::class, 'store'])->name('produtos.store');
 
+Route::get('/vendas/create', [VendaController::class, 'create'])->name('vendas.create');
+Route::post('/vendas', [VendaController::class, 'store'])->name('vendas.store');
