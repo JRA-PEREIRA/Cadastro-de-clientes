@@ -28,3 +28,8 @@ Route::post('/produtos/store', [ProdutoController::class, 'store'])->name('produ
 
 Route::get('/vendas/create', [VendaController::class, 'create'])->name('vendas.create');
 Route::post('/vendas', [VendaController::class, 'store'])->name('vendas.store');
+
+
+Route::get('/teste', function() {
+    return 'Rota de teste funcionando!';
+});

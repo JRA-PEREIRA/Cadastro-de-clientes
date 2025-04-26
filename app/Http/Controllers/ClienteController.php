@@ -20,30 +20,27 @@ class ClienteController extends Controller
     }
 
     public function store(Request $request)
-    {
-        try {
-            $validated = $request->validate([
-                'matricula' => 'required|string|unique:clientes,matricula',
-                'saldo' => 'required|numeric|min:0',
-                'nome' => 'required|string|max:255',
-                'data_nascimento' => 'required|date',
-                'genero' => 'required|in:Masculino,Feminino,Outro',
-                'endereco' => 'required|string',
-                'cep' => 'required|regex:/^\d{5}-\d{3}$/',
-                'cpf' => 'required|string|size:14|unique:clientes,cpf',
-                'rg' => 'nullable|string|max:12',
-                'celular' => 'required|regex:/^\(\d{2}\) \d{5}-\d{4}$/',
-                'email' => 'required|email|unique:clientes,email',
-            ]);
-            
-            Cliente::create($validated);
-            
-            return redirect()->route('clientes.index')->with('success', 'Cliente cadastrado com sucesso!');
-        } catch (Exception $ex) {
-            return redirect()->route('clientes.create')->with('error', $ex->getMessage())->withInput();
-        }
-    }
+{
+    $validated = $request->validate([
+        'matricula' => 'required|unique:clientes',
+        'saldo' => 'required|numeric',
+        'nome' => 'required',
+        'data_nascimento' => 'required|date',
+        'genero' => 'required',
+        'endereco' => 'required',
+        'cep' => 'required',
+        'cpf' => 'required|unique:clientes',
+        'celular' => 'required',
+        'email' => 'required|email|unique:clientes'
+    ]);
 
+    try {
+        Cliente::create($validated);
+        return redirect()->route('clientes.index')->with('success', 'Cliente cadastrado!');
+    } catch (\Exception $e) {
+        return back()->withInput()->with('error', 'Erro ao cadastrar: ' . $e->getMessage());
+    }
+}
     public function show(Cliente $cliente)
     {
         return view('clientes.show', compact('cliente'));

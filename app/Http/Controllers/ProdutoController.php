@@ -1,5 +1,6 @@
 <?php
 
+// app/Http/Controllers/ProdutoController.php
 namespace App\Http\Controllers;
 
 use App\Models\Produto;
@@ -7,26 +8,29 @@ use Illuminate\Http\Request;
 
 class ProdutoController extends Controller
 {
-    public function create(){
-        
-        return view('produtos.create');
-        
+    // Exibe o formulário de cadastro
+    public function create()
+    {
+        $produtos = Produto::orderBy('nome')->get(); // Lista ordenada
+        return view('produtos.create', compact('produtos'));
     }
-    
-    public function store(Request $request){
-      
-        $produto = Produto::where('nome', $request->produto)->first();
 
-        if($produto){
-            dd('Produto já cadastrado!');
-        }
-
-        Produto::create([
-            'nome' => $request->produto, //nome (esquerda)= a tabela; direita = produto formulário
-            'valor' => $request->valor 
+    // Salva um novo produto
+    public function store(Request $request)
+    {
+        // Validação
+        $request->validate([
+            'nome' => 'required|string|unique:produtos,nome',
+            'valor' => 'required|numeric|min:0.01',
         ]);
 
-        dd('produto cadastrado');
-    }
+        // Cria o produto
+        Produto::create([
+            'nome' => $request->nome,
+            'valor' => $request->valor,
+        ]);
 
+        // Redireciona com mensagem de sucesso
+        return redirect()->route('produtos.create')->with('success', 'Produto cadastrado!');
+    }
 }

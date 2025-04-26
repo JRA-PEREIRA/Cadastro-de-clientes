@@ -10,5 +10,4 @@ class Produto extends Model
         'nome', 'valor'
     ];
 
-    protected $table = 'produto';
 }
