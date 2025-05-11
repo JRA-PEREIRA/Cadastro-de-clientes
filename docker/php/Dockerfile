@@ -1,6 +1,5 @@
 FROM php:8.2-fpm
 
-# Instala dependências
 RUN apt-get update && apt-get install -y \
     git \
     curl \
@@ -9,19 +8,18 @@ RUN apt-get update && apt-get install -y \
     libxml2-dev \
     zip \
     unzip \
-    && docker-php-ext-install pdo pdo_mysql mbstring exif pcntl bcmath gd
+    && docker-php-ext-install pdo pdo_mysql mbstring exif pcntl bcmath gd \
+    && rm -rf /var/lib/apt/lists/*
 
-# Instala Composer
-COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
+COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 
 WORKDIR /var/www/html
 
-# Copia arquivos mantendo permissões
 COPY . .
 
-# Instala dependências
 RUN composer install --no-interaction --optimize-autoloader
 
-# Ajusta permissões
-RUN chown -R www-data:www-data /var/www/html/storage
-RUN chmod -R 775 /var/www/html/storage
+RUN chown -R www-data:www-data /var/www/html/storage \
+    && chmod -R 775 /var/www/html/storage
+
+ENV PHP_FPM_USER www-data

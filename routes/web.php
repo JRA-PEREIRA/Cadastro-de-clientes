@@ -27,7 +27,7 @@ Route::get('/produtos/create', [ProdutoController::class, 'create'])->name('prod
 Route::post('/produtos/store', [ProdutoController::class, 'store'])->name('produtos.store');
 
 Route::get('/vendas/create', [VendaController::class, 'create'])->name('vendas.create');
-Route::post('/vendas', [VendaController::class, 'store'])->name('vendas.store');
+Route::post('/vendas/store', [VendaController::class, 'store'])->name('vendas.store');
 
 
 Route::get('/teste', function() {
